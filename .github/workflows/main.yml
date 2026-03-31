@@ -19,3 +19,4 @@ jobs:
         with:
           sdk: v3.0.0-beta.1
           combine: true
+          path: Ervos/src/geode
