@@ -39,7 +39,8 @@ SerialPort::SerialPort(const char *portName)
         }
         else
         {
-            dcbSerialParameters.BaudRate = 1000000;
+            // CHANGED TO 115200 FOR BETTER STABILITY
+            dcbSerialParameters.BaudRate = 115200;
             dcbSerialParameters.ByteSize = 8;
             dcbSerialParameters.StopBits = ONESTOPBIT;
             dcbSerialParameters.Parity = NOPARITY;
