@@ -3,6 +3,7 @@ name: Build Geode Mod
 on:
   push:
     branches:
+    # Double check if your branch is 'main' or 'master'
       - main
   workflow_dispatch:
 
@@ -19,4 +20,5 @@ jobs:
         with:
           sdk: v3.0.0-beta.1
           combine: true
+          # This tells GitHub to walk into your folders first
           path: Ervos/src/geode
