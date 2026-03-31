@@ -1,32 +1,19 @@
-cmake_minimum_required(VERSION 3.21)
-set(CMAKE_OSX_ARCHITECTURES "x86_64")
-set(CMAKE_C_COMPILER "clang")
-set(CMAKE_CXX_COMPILER "clang++")
+cmake_minimum_required(VERSION 3.13.4)
 
-project(MulTwoPlayer VERSION 1.0.1)
+# Tell CMake to find the Geode SDK
+find_package(Geode REQUIRED v3.0.0-beta.1)
 
-include_directories(src/serial_library/include)
-link_directories(src/serial_library/src)
+project(MulTwoPlayer VERSION 1.1.0)
 
-set(serial_SRCS src/serial_library/src/SerialPort.cpp src/serial_library/include/SerialPort.hpp)
-
-add_library(serial ${serial_SRCS})
-target_link_libraries(serial)
-
-# Set up the mod binary
-add_library(${PROJECT_NAME} SHARED
-    src/main_better.cpp
-    src/serial_library/src/SerialPort.cpp
-    src/serial_library/include/SerialPort.hpp
+# This defines the mod and tells it which files to compile
+add_geode_mod(
+    teknikclel69.servomod
+    VERSION v1.1.0
+    SOURCES 
+        src/main_better.cpp 
+        src/serial_library/src/SerialPort.cpp
+        src/serial_library/include/SerialPort.hpp
 )
 
-if (NOT DEFINED ENV{GEODE_SDK})
-    message(FATAL_ERROR "Unable to find Geode SDK! Please define GEODE_SDK environment variable to point to Geode")
-else()
-    message(STATUS "Found Geode: $ENV{GEODE_SDK}")
-endif()
-
-add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
-
-# Set up dependencies, resources, link Geode
-setup_geode_mod(${PROJECT_NAME})
+# This tells the compiler where the .hpp file is hiding so main_better.cpp can find it
+target_include_directories(${PROJECT_NAME} PUBLIC src/serial_library/include)
