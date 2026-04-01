@@ -18,6 +18,8 @@ jobs:
         uses: geode-sdk/build-geode-mod@main
         with:
           sdk: v3.0.0-beta.1
+          # This tells the builder where the SDK was installed
+          sdk-path: ${{ env.GEODE_SDK }}
           combine: true
-          # THIS IS THE FIX: Since 'src' is on your main page
+          # Points to your folder containing CMakeLists.txt
           path: src/geode
